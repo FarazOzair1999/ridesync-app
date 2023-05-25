@@ -37,7 +37,6 @@ class LoginScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 24.0, fontFamily: "Raleway"),
                 textAlign: TextAlign.center,
               ),
-
               Padding(
                   padding: EdgeInsets.all(20.0),
                   child: Column(
@@ -89,19 +88,20 @@ class LoginScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           print(" Login Button pressed");
-                          if(!emailTextEditingController.text.contains("@"))
-                          {
-                          displayToastMessage("Email address is not valid (does not contain @)", context);
-                          }
-                          else if (passwordTextEditingController.text.length<7)
-                          {
-                            displayToastMessage("Password must be at least 7 characters", context);
-                          }
-                          else if (passwordTextEditingController.text.isEmpty)
-                            {
-                              displayToastMessage("Password is mandatrory", context);
-                            }
-                          else {
+                          if (!emailTextEditingController.text.contains("@")) {
+                            displayToastMessage(
+                                "Email address is not valid (does not contain @)",
+                                context);
+                          } else if (passwordTextEditingController.text.length <
+                              7) {
+                            displayToastMessage(
+                                "Password must be at least 7 characters",
+                                context);
+                          } else if (passwordTextEditingController
+                              .text.isEmpty) {
+                            displayToastMessage(
+                                "Password is mandatrory", context);
+                          } else {
                             loginAndAuthenticateUser(context);
                           }
                         },
@@ -135,39 +135,39 @@ class LoginScreen extends StatelessWidget {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   void loginAndAuthenticateUser(BuildContext context) async {
-
-    showDialog(context: context, builder: (BuildContext context)
-    {
-      return ProgressDialoq(message: "Authenticating please wait...",);
-    },
-    barrierDismissible: false
-    );
-    final User userCredential = (await _firebaseAuth.signInWithEmailAndPassword(
-            email: emailTextEditingController.text,
-            password: passwordTextEditingController.text
-    ).catchError((errMsg){
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ProgressDialoq(
+            message: "Authenticating please wait...",
+          );
+        },
+        barrierDismissible: false);
+    final User userCredential = (await _firebaseAuth
+            .signInWithEmailAndPassword(
+                email: emailTextEditingController.text,
+                password: passwordTextEditingController.text)
+            .catchError((errMsg) {
       Navigator.pop(context);
       displayToastMessage(errMsg.toString(), context);
-    })).user;
+    }))
+        .user;
 
     if (userCredential != null) {
-      userRef
-          .child(userCredential.uid)
-          .once()
-          .then((DataSnapshot snap) {
-                if (snap.value != null) {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, MainScreen.idScreen, (route) => false);
-                  displayToastMessage("Welcome back!" , context);
-                }
-                else {
-                  Navigator.pop(context);
-                  _firebaseAuth.signOut();
-                  displayToastMessage("No such account exists for this user, please create a new account", context);
-                }
-              });
-          }
-    else{
+      userRef.child(userCredential.uid).once().then((DataSnapshot snap) {
+        if (snap.value != null) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, MainScreen.idScreen, (route) => false);
+          displayToastMessage("Welcome back!", context);
+        } else {
+          Navigator.pop(context);
+          _firebaseAuth.signOut();
+          displayToastMessage(
+              "No such account exists for this user, please create a new account",
+              context);
+        }
+      });
+    } else {
       Navigator.pop(context);
       displayToastMessage("Error occured, not signed in", context);
     }

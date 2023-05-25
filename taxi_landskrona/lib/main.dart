@@ -14,15 +14,27 @@ void main() async {
   runApp(MyApp());
 }
 
-DatabaseReference userRef=FirebaseDatabase.instance.reference().child("users");
-DatabaseReference driversRef=FirebaseDatabase.instance.reference().child("drivers");
+DatabaseReference userRef =
+    FirebaseDatabase.instance.reference().child("users");
+DatabaseReference driversRef =
+    FirebaseDatabase.instance.reference().child("drivers");
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   initSecurityState();
+  // }
+
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context)=>AppData(),
+      create: (context) => AppData(),
       child: MaterialApp(
         title: 'Taxi Landskrona',
         debugShowCheckedModeBanner: false,
@@ -30,14 +42,15 @@ class MyApp extends StatelessWidget {
           fontFamily: "Raleway",
           primaryColor: Colors.black,
         ),
-        initialRoute: FirebaseAuth.instance.currentUser == null ?LoginScreen.idScreen:MainScreen.idScreen,
+        initialRoute: FirebaseAuth.instance.currentUser == null
+            ? LoginScreen.idScreen
+            : MainScreen.idScreen,
         routes: {
-          RegistrationScreen.idScreen:(context) => RegistrationScreen(),
-          LoginScreen.idScreen:(context) => LoginScreen(),
-          MainScreen.idScreen:(context) => MainScreen(),
+          RegistrationScreen.idScreen: (context) => RegistrationScreen(),
+          LoginScreen.idScreen: (context) => LoginScreen(),
+          MainScreen.idScreen: (context) => MainScreen(),
         },
       ),
     );
   }
 }
-

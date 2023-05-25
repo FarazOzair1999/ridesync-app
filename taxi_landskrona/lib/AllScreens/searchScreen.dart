@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mapbox_autocomplete/flutter_mapbox_autocomplete.dart';
-import 'package:geocoder/geocoder.dart';
-import 'package:google_api_headers/google_api_headers.dart';
-import 'package:google_maps_webservice/places.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_landskrona/AllScreens/AllWidgets/Divider.dart';
 import 'package:taxi_landskrona/AllScreens/AllWidgets/progressDialog.dart';
@@ -11,7 +7,6 @@ import 'package:taxi_landskrona/DataHandler/appData.dart';
 import 'package:taxi_landskrona/Models/address.dart';
 import 'package:taxi_landskrona/Models/placePredictions.dart';
 import 'package:taxi_landskrona/configMaps.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
 
 class SearchScreen extends StatefulWidget {
   @override

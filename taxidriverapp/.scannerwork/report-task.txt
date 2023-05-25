@@ -1,0 +1,6 @@
+projectKey=research_project
+serverUrl=http://localhost:9000
+serverVersion=9.3.0.51899
+dashboardUrl=http://localhost:9000/dashboard?id=research_project
+ceTaskId=AX_pHYYdAXH_VZS4_ZKK
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AX_pHYYdAXH_VZS4_ZKK
